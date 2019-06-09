@@ -8,16 +8,16 @@ class EncoderCNN(nn.Module):
     def __init__(self, embed_size):
 
         super(EncoderCNN, self).__init__()
-        resnet = models.Inception3(pretrained=True)
-        modules = list(resnet.children())[:-1]  # delete the last fc layer.
-        self.resnet = nn.Sequential(*modules)
-        self.linear = nn.Linear(resnet.fc.in_features, embed_size)
+        model = models.resnet152(pretrained=True)
+        modules = list(model.children())[:-1]
+        self.model = nn.Sequential(*modules)
+        self.linear = nn.Linear(model.fc.in_features, embed_size)
         self.bn = nn.BatchNorm1d(embed_size, momentum=0.01)
 
     def forward(self, images):
 
         with torch.no_grad():
-            features = self.resnet(images)
+            features = self.model(images)
         features = features.reshape(features.size(0), -1)
         features = self.bn(self.linear(features))
         return features

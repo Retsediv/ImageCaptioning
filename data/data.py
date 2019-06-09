@@ -28,7 +28,7 @@ class Flickr8k(object):
 
     def __getitem__(self, idx):
 
-        caption = self.captions[self.imgs[idx]]
+        caption = self.captions[self.imgs[idx]][4]
 
         img = self.imgs[idx]
         path = get_full_path_to_img(self.root, img)
@@ -45,33 +45,11 @@ class Flickr8k(object):
 
         target = torch.Tensor(caption)
 
-        return img, target
+        return image, target
 
     def __len__(self):
         return len(self.imgs)
 
-def get_captions(annotation):
-
-    captions_tmp = open(annotation, 'r').read().strip().split('\n')
-
-    captions = {}
-    for row in captions_tmp:
-        title = row.split("\t")[0][:-2]
-        text = row.split("\t")[1]
-        if not (title in captions):
-            captions[title] = []
-
-        captions[title].append(text)
-
-    captions_extended = {}
-
-    for key, val in captions.items():
-        for row in val:
-            if not (key in captions_extended):
-                captions_extended[key] = []
-
-            captions_extended[key].append('<start> ' + row + ' <end>')
-    return captions_extended
 
 def get_full_path_to_img(root, img_title):
     return root + img_title

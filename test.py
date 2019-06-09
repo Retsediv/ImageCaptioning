@@ -6,7 +6,7 @@ import pickle
 import os
 from torchvision import transforms
 from build_vocab import Vocabulary
-from model import EncoderCNN, DecoderRNN
+from model.model import EncoderCNN, DecoderRNN
 from PIL import Image
 
 # Device configuration
@@ -15,7 +15,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_image(image_path, transform=None):
     image = Image.open(image_path)
-    image = image.resize([224, 224], Image.LANCZOS)
+    image = image.resize([299, 299], Image.LANCZOS)
 
     if transform is not None:
         image = transform(image).unsqueeze(0)

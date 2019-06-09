@@ -4,9 +4,9 @@ import torch.nn as nn
 import numpy as np
 import os
 import pickle
-from data_loader import get_loader
+from data.data import get_loader
 from build_vocab import Vocabulary
-from model import EncoderCNN, DecoderRNN
+from model.model import EncoderCNN, DecoderRNN
 from torch.nn.utils.rnn import pack_padded_sequence
 from torchvision import transforms
 
@@ -80,7 +80,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_path', type=str, default='models/', help='path for saving trained models')
-    parser.add_argument('--crop_size', type=int, default=224, help='size for randomly cropping images')
+    parser.add_argument('--crop_size', type=int, default=299, help='size for randomly cropping images')
     parser.add_argument('--vocab_path', type=str, default='data/vocab.pkl', help='path for vocabulary wrapper')
     parser.add_argument('--image_dir', type=str, default='data/resized2014', help='directory for resized images')
     parser.add_argument('--caption_path', type=str, default='data/annotations/captions_train2014.json',
