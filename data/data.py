@@ -16,15 +16,16 @@ from PIL import Image
 
 
 class Flickr8k(object):
-    def __init__(self, root, annotation, vocab,  transform):
+    def __init__(self, root, annotation, vocab, train_img,  transform):
         self.root = root
         self.annotation = get_captions(annotation)
         self.transform = transform
         self.vocab = vocab
-        self.imgs = list(set(open('./Flickr8k/text/Flickr_8k.trainImages.txt', 'r').read().strip().split('\n')))
+        self.imgs = list(set(open(train_img, 'r').read().strip().split('\n')))
         self.captions = {}
+        print(len(self.imgs))
         for img in self.imgs:
-            self.captions[img] = annotation[img]
+            self.captions[img] = self.annotation[img]
 
     def __getitem__(self, idx):
 
@@ -55,7 +56,6 @@ def get_full_path_to_img(root, img_title):
     return root + img_title
 
 
-
 def collate_fn(data):
 
     # Sort a data list by caption length (descending order).
@@ -73,9 +73,23 @@ def collate_fn(data):
     return images, targets, lengths
 
 
-def get_loader(root, json, vocab, transform, batch_size, shuffle, num_workers):
+def get_captions(annotations):
+    captions_tmp = open(annotations, 'r').read().strip().split('\n')
 
-    data = Flickr8k(root=root, transform=transform)
+    captions = {}
+    for row in captions_tmp:
+        title = row.split("\t")[0][:-2]
+        text = row.split("\t")[1]
+        if not (title in captions):
+            captions[title] = []
+
+        captions[title].append(text)
+    return captions
+
+
+def get_loader(root, ann, vocab, train_img, transform, batch_size, shuffle, num_workers):
+
+    data = Flickr8k(root=root, annotation=ann, vocab=vocab, train_img=train_img, transform=transform)
 
     data_loader = torch.utils.data.DataLoader(dataset=data,
                                               batch_size=batch_size,

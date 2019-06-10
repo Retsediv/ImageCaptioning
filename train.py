@@ -21,7 +21,7 @@ def main(args):
 
     # Image preprocessing, normalization for the pretrained resnet
     transform = transforms.Compose([
-        transforms.RandomCrop(args.crop_size),
+        transforms.Resize((args.crop_size, args.crop_size)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize((0.485, 0.456, 0.406),
@@ -32,7 +32,7 @@ def main(args):
         vocab = pickle.load(f)
 
     # Build data loader
-    data_loader = get_loader(args.image_dir, args.caption_path, vocab,
+    data_loader = get_loader(args.image_dir, args.caption_path, vocab, args.train_img,
                              transform, args.batch_size,
                              shuffle=True, num_workers=args.num_workers)
 
@@ -71,6 +71,7 @@ def main(args):
 
                 # Save the model checkpoints
             if (i + 1) % args.save_step == 0:
+                print('saving weights')
                 torch.save(decoder.state_dict(), os.path.join(
                     args.model_path, 'decoder-{}-{}.ckpt'.format(epoch + 1, i + 1)))
                 torch.save(encoder.state_dict(), os.path.join(
@@ -79,21 +80,23 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_path', type=str, default='models/', help='path for saving trained models')
-    parser.add_argument('--crop_size', type=int, default=299, help='size for randomly cropping images')
-    parser.add_argument('--vocab_path', type=str, default='data/vocab.pkl', help='path for vocabulary wrapper')
-    parser.add_argument('--image_dir', type=str, default='data/resized2014', help='directory for resized images')
-    parser.add_argument('--caption_path', type=str, default='data/annotations/captions_train2014.json',
-                        help='path for train annotation json file')
+    parser.add_argument('--model_path', type=str, default='model/', help='path for saving trained models')
+    parser.add_argument('--crop_size', type=int, default=298, help='resizing size')
+    parser.add_argument('--vocab_path', type=str, default='vocab.pkl', help='path for vocabulary wrapper')
+    parser.add_argument('--image_dir', type=str, default='Flickr8k/dataset/', help='directory for resized images')
+    parser.add_argument('--train_img', type=str, default='./Flickr8k/text/Flickr_8k.trainImages.txt',
+                        help='path to train images listing')
+    parser.add_argument('--caption_path', type=str, default='./Flickr8k/text/Flickr8k.token.txt',
+                        help='path for annotation file')
     parser.add_argument('--log_step', type=int, default=10, help='step size for prining log info')
-    parser.add_argument('--save_step', type=int, default=1000, help='step size for saving trained models')
+    parser.add_argument('--save_step', type=int, default=400, help='step size for saving trained models')
 
     # Model parameters
     parser.add_argument('--embed_size', type=int, default=256, help='dimension of word embedding vectors')
     parser.add_argument('--hidden_size', type=int, default=512, help='dimension of lstm hidden states')
     parser.add_argument('--num_layers', type=int, default=1, help='number of layers in lstm')
 
-    parser.add_argument('--num_epochs', type=int, default=5)
+    parser.add_argument('--num_epochs', type=int, default=20)
     parser.add_argument('--batch_size', type=int, default=128)
     parser.add_argument('--num_workers', type=int, default=2)
     parser.add_argument('--learning_rate', type=float, default=0.001)
