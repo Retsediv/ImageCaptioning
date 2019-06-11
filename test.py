@@ -15,7 +15,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_image(image_path, transform=None):
     image = Image.open(image_path)
-    image = image.resize([299, 299], Image.LANCZOS)
+    image = image.resize([298, 298], Image.LANCZOS)
 
     if transform is not None:
         image = transform(image).unsqueeze(0)
