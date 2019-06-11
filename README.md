@@ -1,7 +1,6 @@
 # Image Captioning
 
-
-The goal of the project is to convert a given input image into a natural language description. 
+The goal of the project is to develop the neural network which will be capable of converting a given input image into a natural language description, that can describe what is going on that image.
 
 ## Content
 
@@ -42,7 +41,7 @@ $ python test.py --image='{name}.{ext}'
 <br>
 
 ## Pretrained model
-If you do not want to train the model from scratch, you can use a pretrained model. You can download the pretrained model [here]() 
+If you do not want to train the model from scratch, you can use a pretrained model. You can download the pretrained model [here](https://www.dropbox.com/s/vtbskghx7vg4q3f/weights.zip?dl=0) 
 
 
 ## Architecture
@@ -99,13 +98,13 @@ class DecoderRNN(nn.Module):
 
 Generally, it's always a difficult task to choose the proper metric for NLP-related tasks. The reason is that we can not as easily compare words(and especially phrases, sentences, text corpuses) as we do with numbers(e.g. we can easily calculate some distance between them).
 
-After the long exploration we decided to try **BLEU** metric, because another were mostly pointed on another problems, which do not correlate with our.
+After the long exploration, we decided to try **BLEU** metric, because another were mostly pointed on other problems, which do not correlate with ours.
 
-**BLEU**(Bilingual Evaluation Understudy) - a score for comparing a candidate translation of text to one or more reference translations. For short, it is a metric for evaluating a generated sentence to a reference sentence. A perfect match results in a score of 1.0, whereas a perfect mismatch results in a score of 0.0.
+**BLEU**(Bilingual Evaluation Understudy) - a score for comparing a candidate translation of the text to one or more reference translations. For short, it is a metric for evaluating a generated sentence to a reference sentence. A perfect match results in a score of 1.0, whereas an ideal mismatch results in a score of 0.0.
 
 ![img](images/BLEU.jpg)
 
-Depend on the problem it could be pretty informative metric, but not in our case( Our model learned how to match objects on the image with words/phrases on text and generalizes the captions in such a way. It means that in 99% cases our model will **not predict** the *exact caption*, but **will predict**  *generalized caption* - with the same meaning and describing the same object, but in a different way. So, based on it, BLEU almost all the time will give us result very close to 0 which is not good and informative. 
+Depend on the problem it could be pretty informative metric, but not in our case( Our model learned how to match objects on the image with words/phrases on the text and generalises the captions in such a way. It means that in 99% cases our model will **not predict** the *exact caption*, but **will predict**  * generalised caption* - with the same meaning and describing the same object, but differently. So, based on it, BLEU almost all the time will give us result very close to 0, which is not good and informative. 
 
 All the experiments and code related to it you can find in `evaluate.py` file.
 
