@@ -69,13 +69,13 @@ def main(args):
                 print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}, Perplexity: {:5.4f}'
                       .format(epoch, args.num_epochs, i, total_step, loss.item(), np.exp(loss.item())))
 
-                # Save the model checkpoints
-            if (i + 1) % args.save_step == 0:
-                print('saving weights')
-                torch.save(decoder.state_dict(), os.path.join(
-                    args.model_path, 'decoder-{}-{}.ckpt'.format(epoch + 1, i + 1)))
-                torch.save(encoder.state_dict(), os.path.join(
-                    args.model_path, 'encoder-{}-{}.ckpt'.format(epoch + 1, i + 1)))
+        # Save the model checkpoints
+        #if  (epoch + 1) % args.save_step == 0:
+        print('saving weights')
+        torch.save(decoder.state_dict(), os.path.join(
+            args.model_path, 'decoder-epoch-{}-loss-{}.ckpt'.format(epoch + 1, loss)))
+        torch.save(encoder.state_dict(), os.path.join(
+            args.model_path, 'encoder-epoch-{}-loss-{}.ckpt'.format(epoch + 1, loss)))
 
 
 if __name__ == '__main__':
