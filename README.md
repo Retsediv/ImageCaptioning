@@ -97,7 +97,17 @@ class DecoderRNN(nn.Module):
 
 ## Metrics
 
-BLEU
+Generally, it's always a difficult task to choose the proper metric for NLP-related tasks. The reason is that we can not as easily compare words(and especially phrases, sentences, text corpuses) as we do with numbers(e.g. we can easily calculate some distance between them).
+
+After the long exploration we decided to try **BLEU** metric, because another were mostly pointed on another problems, which do not correlate with our.
+
+**BLEU**(Bilingual Evaluation Understudy) - a score for comparing a candidate translation of text to one or more reference translations. For short, it is a metric for evaluating a generated sentence to a reference sentence. A perfect match results in a score of 1.0, whereas a perfect mismatch results in a score of 0.0.
+
+![img](images/BLEU.jpg)
+
+Depend on the problem it could be pretty informative metric, but not in our case( Our model learned how to match objects on the image with words/phrases on text and generalizes the captions in such a way. It means that in 99% cases our model will **not predict** the *exact caption*, but **will predict**  *generalized caption* - with the same meaning and describing the same object, but in a different way. So, based on it, BLEU almost all the time will give us result very close to 0 which is not good and informative. 
+
+All the experiments and code related to it you can find in `evaluate.py` file.
 
 ## Results
 
@@ -110,8 +120,9 @@ BLEU
 
 
 ## Dataset
-We use [Flickr8k](http://academictorrents.com/details/9dea07ba660a722ae1008c4c8afdd303b6f6e53b), which contains 8000 images with 5 description each 
+We used [Flickr8k](http://academictorrents.com/details/9dea07ba660a722ae1008c4c8afdd303b6f6e53b), which contains 8000 images with 5 description each 
 
 <br>
+
 # Thank u for your attention!
 ![Thank u](https://media.giphy.com/media/jNdw5Qmy5MOpq/giphy.gif)
