@@ -64,3 +64,6 @@ BLEU
 We tried Inception.v3 and Resnet152 as a decoder for our task and ..
 ## Dataset
 We use [Flickr8k](http://academictorrents.com/details/9dea07ba660a722ae1008c4c8afdd303b6f6e53b)
+
+
+![Thank u](https://media.giphy.com/media/jNdw5Qmy5MOpq/giphy.gif)
