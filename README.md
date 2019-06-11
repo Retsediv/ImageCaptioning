@@ -101,12 +101,12 @@ BLEU
 
 ## Results
 
-| ``` <start> two small girls laugh as a wave hits them at the beach . <end>```| ```<start> the tan and white dog is running in the field . <end>```| ```<start> two woman stand together and one holds a purple cloth . <end>```|```<start> two women play <unk> while a third man in the background . <end>```|
-| :---: | :---: | :---: | :---:|
-| ![wave](eval_data/wave.png)  | ![a dog](png/dog.png)| ![girls](png/girls.png) |![guys](png/hip.png) |
+| ``` <start> two small girls laugh as a wave hits them at the beach . <end>``` | ```<start> the tan and white dog is running in the field . <end>``` | ```<start> two woman stand together and one holds a purple cloth . <end>``` | ```<start> two women play <unk> while a third man in the background . <end>``` |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                   ![wave](images/wave.jpg)                   |                   ![a dog](images/dog.jpg)                   |                  ![girls](images/girls.jpg)                  |                   ![guys](images/hip.jpg)                    |
 
-  
-    
+
+​    
 
 
 ## Dataset
