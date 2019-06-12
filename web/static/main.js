@@ -1,16 +1,8 @@
-var file_to_process = "";
-
-function get_caption(){
-    return "Example caption"
-}
-
 function readURL(input) {
-    console.log(input);
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            console.log("image: ", e.target.result);
             $('#image_upload_preview').attr('src', e.target.result);
         }
 
@@ -27,8 +19,19 @@ $(document).ready(function(){
     $("#inputForm").submit(function (e) {
         e.preventDefault();
 
-        let caption = get_caption()
-        $("#image-caption-text").text(caption);
+        let form = $('#inputForm')[0];
+        var fd = new FormData(form);
+
+        fetch('/getcaption', {method: 'POST', body: fd})
+            .then(res => {
+                console.log("res: ", res);
+                return res.json() // or res.text, res.arraybuffer
+            })
+            .then(result => {
+                console.log("result: ", result);
+
+                $("#image-caption-text").text(result);
+            })
 
         $("#image-caption-block").show();
     });
