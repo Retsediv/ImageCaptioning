@@ -1,0 +1,11 @@
+#image-caption-block {
+    display: none;
+}
+
+#image_upload_preview {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    max-width: 350px;
+}
