@@ -122,6 +122,7 @@ $ cd web/
 $ python app.py
 ```
 
+![girls](images/caption.gif)
 
 
 ## Dataset
