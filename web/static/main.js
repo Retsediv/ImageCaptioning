@@ -30,7 +30,7 @@ $(document).ready(function(){
             .then(result => {
                 console.log("result: ", result);
 
-                $("#image-caption-text").text(result);
+                $("#image-caption-text").text(result.text);
             })
 
         $("#image-caption-block").show();
