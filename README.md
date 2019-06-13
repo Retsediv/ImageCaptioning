@@ -7,10 +7,9 @@ The goal of the project is to develop the neural network which will be capable o
 - [Usage](#usage)
 - [Architecture](#architecture)
 - [Training](#training)
-- [Testing](#testing)
-- [Experiments](#experiments)
 - [Metrics](#metrics)
 - [Results](#results)
+- [Demo](#demo)
 - [Dataset](#dataset)
 
 
@@ -92,7 +91,7 @@ class DecoderRNN(nn.Module):
 ```
 ## Training
 We trained our model with cross-entropy loss (log loss).
-Model's loss fall down up t 1,7 from 5,6 by 20th epoch. With 200th epoch weights (loss=0,03) model works preety accurate.
+Model's loss fall down up t 1,7 from 5,6 by 20th epoch. With 200th epoch weights (loss=0,001) model works preety accurate.
 
 ## Metrics
 
@@ -115,6 +114,14 @@ All the experiments and code related to it you can find in `evaluate.py` file.
 
 
 ​    
+
+## Demo
+
+```bash
+$ cd web/
+$ python app.py
+```
+
 
 
 ## Dataset
