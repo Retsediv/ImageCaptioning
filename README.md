@@ -91,8 +91,8 @@ class DecoderRNN(nn.Module):
 
 ```
 ## Training
-
-## Testing
+We trained our model with cross-entropy loss (log loss).
+Model's loss fall down up t 1,7 from 5,6 by 20th epoch. With 200th epoch weights (loss=0,03) model works preety accurate.
 
 ## Metrics
 
@@ -102,7 +102,6 @@ After the long exploration, we decided to try **BLEU** metric, because another w
 
 **BLEU**(Bilingual Evaluation Understudy) - a score for comparing a candidate translation of the text to one or more reference translations. For short, it is a metric for evaluating a generated sentence to a reference sentence. A perfect match results in a score of 1.0, whereas an ideal mismatch results in a score of 0.0.
 
-![img](images/BLEU.jpg)
 
 Depend on the problem it could be pretty informative metric, but not in our case( Our model learned how to match objects on the image with words/phrases on the text and generalises the captions in such a way. It means that in 99% cases our model will **not predict** the *exact caption*, but **will predict**  * generalised caption* - with the same meaning and describing the same object, but differently. So, based on it, BLEU almost all the time will give us result very close to 0, which is not good and informative. 
 
